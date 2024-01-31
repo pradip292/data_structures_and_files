@@ -1,0 +1,90 @@
+#include<iostream>
+  using namespace std;
+struct name
+{
+	int data;
+	name *next;
+};
+class code
+{
+	private:
+	name *top;
+        public:
+	//string str();
+	void Creat();
+	void push(int);
+	int pop();
+	bool isempty();
+	int topstack();
+	
+
+}c;
+
+void code :: Creat()
+	{
+	  top=NULL;
+	}
+bool code :: isempty()
+{
+	return (top==NULL);
+}
+	
+void code :: push(int a)
+	{
+	 name *node;
+	node=new(name);
+	if(node==NULL)
+	cout<<"Cannot allocate memory";
+	node->data = a;
+	node->next=top;
+	top=node;
+	}
+int code ::pop()
+{
+	name *del;
+	if(isempty())
+{
+	cout<<"stack is empty";
+	return 1;
+}
+	else{
+	del=top;
+	top=del->next;
+	delete(del);
+
+}
+return 0;
+}
+
+
+int main()
+{
+	char input[20];
+	char ch;
+	int i , flag=0;
+	cout<<"enter the input string ";
+	cin>>input;
+	
+	c.Creat();
+	for(i=0 ; input[i]!='\0' ; i++)
+	{
+	ch=input[i];
+	if(ch=='(')
+	c.push(ch);
+	else
+	if(ch==')')
+	flag=c.pop();
+	}
+	if(c.isempty() and flag==0)
+{
+	cout<<"well formedness";	
+}
+else
+{
+	cout<<"not well formedness";
+}
+
+
+
+
+}

@@ -1,0 +1,129 @@
+#include<iostream>
+using namespace std;
+struct tree
+{
+    int data;
+    tree *left;
+    tree *right;
+};
+class input
+{
+    public:
+    void insert(tree * , tree*);
+    void inorder(tree *);
+    void preorder(tree *);
+    void postorder(tree *);
+}s;
+void input :: insert(tree *root , tree *newnode)
+{
+    if(newnode->data>root->data)
+    {
+        if(root->right==NULL)
+        {
+            root->right=newnode;
+        }
+        else{
+            root=root->right;
+            insert(root,newnode);
+        }
+    }
+    else{
+        if(root->left==NULL)
+        {
+            root->left=newnode;
+        }
+        else{
+            root=root->left;
+            insert(root,newnode);
+        }
+    }
+}
+void input :: inorder(tree *root)
+{
+    if(root!=NULL)
+    {
+    inorder(root->left);
+    cout<<root->data<<"  ";
+    inorder(root->right);
+    }
+}
+void input :: preorder(tree *root)
+{
+    if(root!=NULL)
+    {
+    cout<<root->data << "  " ;
+    preorder(root->left);
+    preorder(root->right);
+    }  
+}
+void input :: postorder(tree *root)
+{
+    if(root!=NULL)
+    {
+    postorder(root->left);
+    postorder(root->right); 
+    cout<<root->data<<"  "; 
+    }   
+}
+
+int main()
+{
+    tree *newnode,*root=NULL;
+    int choice=0;
+    do
+    {
+        cout<<"Press \n 1 for insert \n 2 for inorder \n 3 for preorder \n 4 for postorder \n";
+        cout<<"Enter choice : \n";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:
+            {
+                do
+                {
+                    newnode=new(tree);
+                    cout<<"Enter the data in the tree \n";
+                    cin>>newnode->data;
+                    newnode->left=NULL;
+                    newnode->right=NULL;
+                    if(root==NULL)
+                    {
+                        root=newnode;
+                    }
+                    else
+                    {
+                        s.insert(root,newnode);
+                    }
+                    cout<<"If you want to stop inserting press 1 , otherwise 0 -> ";
+                    cin>>choice;
+                }while(choice!=1);
+                break;
+
+            }
+            case 2:
+            { 
+                 cout<<"The inorder traversal is :";
+                    s.inorder(root);
+                    cout<<endl;
+                    break;
+            }
+            case 3:
+            {
+                cout<<"The preorder traversal is :";
+                s.preorder(root);
+                cout<<endl;
+                break;
+            }
+            case 4:
+            {
+                cout<<"The postorder traversal is :";
+                s.postorder(root);
+                cout<<endl;
+                break;
+            }
+        }
+        cout<<"Want to continue press 1 or press 0 for stop the tree : ";
+        cin>>choice;
+    }while(choice!=0);
+    return 0;
+}
